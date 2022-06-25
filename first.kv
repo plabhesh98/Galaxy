@@ -1,0 +1,94 @@
+#:import menu menu
+
+galaxy:
+
+<images-example@GridLayout>:
+    cols: 3
+    Image:
+        source: "background.jpg"
+    Image:
+        source: "background.jpg"
+        allow_stretch: True
+        keep_ratio: False
+    Image:
+        source: "background.jpg"
+
+<Anchorlayout@GridLayout>:
+    cols: 3
+    ToggleButton:
+        text: "Toogle"
+        on_state: root.click(self)
+    Button:
+        text: "32344"
+        on_press: root.on_click()
+        disabled: not root.count_enabled
+    Switch:
+        id: my_switch
+        on_active: root.on_switch_click(self)
+        size_hint: None, 1
+        width: "100dp"
+        active: True
+    Label:
+        text: root.my_text
+    Slider:
+        id: my_slider
+        min : 0
+        max: 50
+        value: 25
+        orientation: "horizontal"
+        on_value: root.on_slider(self)
+        disabled: not my_switch.active
+    Label:
+        text: str(int(my_slider.value))
+    ProgressBar:
+        max: 50
+        value: my_slider.value
+    TextInput:
+        multiline: True
+
+<CanvasExample4>:
+    Button:
+        pos: (100, 400)
+        text: "A"
+        on_press: root.react()
+
+<CanvasExample6>
+    BoxLayout:
+        size: root.size
+        RelativeLayout:
+            canvas:
+                Color:
+                    rgb: 255/255.0, 153/255.0, 0
+                Rectangle:
+                    size: self.size
+
+        RelativeLayout:
+            canvas:
+                Color:
+                    rgb: 255, 255, 255
+                Rectangle:
+                    size: self.size
+
+        RelativeLayout:
+            canvas:
+                Color:
+                    rgb: 0, 100, 0
+                Rectangle:
+                    size: self.size
+
+<galaxy>:
+    canvas.before:
+        Rectangle:
+            size: self.size
+            source: 'bg1.jpg'
+    menu_widget: menu_widget
+    perspective_point_x : self.width/2
+    perspective_point_y: self.height * 0.75
+    MenuWidget:
+        id: menu_widget
+    Label:
+        text: root.score_txt
+        font_size: dp(20)
+        font_name: 'fonts/Eurostile.ttf'
+        size_hint: .18, .18
+        pos_hint: {"x": 0, "top": 1}
